@@ -1,0 +1,83 @@
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.filterButton {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.filterButton:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.filterButton:disabled {
+  background: #646cff;
+  color: #fff;
+  border-color: #646cff;
+  cursor: default;
+  opacity: 1;
+}
+
+.filterButton:focus-visible {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.row > *:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.removeButton {
+  flex-shrink: 0;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: #ef5350;
+  color: #fff;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background: #e53935;
+}
+
+.removeButton:active {
+  transform: scale(0.97);
+}
+
+.removeButton:focus-visible {
+  outline: 2px solid #ef5350;
+  outline-offset: 2px;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  padding: 2rem 0;
+  font-size: 0.95rem;
+}

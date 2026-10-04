@@ -1,0 +1,27 @@
+.filterButton {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.filterButton:hover:not(:disabled) {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.filterButton:disabled {
+  background: #646cff;
+  color: #fff;
+  border-color: #646cff;
+  cursor: default;
+  opacity: 1;
+}
+
+.filterButton:focus-visible {
+  outline: 2px solid #646cff;
+  outline-offset: 2px;
+}
