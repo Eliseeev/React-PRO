@@ -1,11 +1,12 @@
 import { Task } from 'entities/task/model/types';
 import styles from './TaskCard.module.css';
+import React from 'react';
 
 interface TaskCardProps {
   task: Task;
 }
 
-export const TaskCard = ({ task }: TaskCardProps) => {
+export const TaskCard = React.memo(({ task }: TaskCardProps) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -14,4 +15,4 @@ export const TaskCard = ({ task }: TaskCardProps) => {
       </div>
     </div>
   );
-};
+});
