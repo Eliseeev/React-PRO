@@ -1,54 +1,54 @@
-import { Task } from 'entities/task/model/types';
-import styles from './TaskList.module.css';
-import { TaskCard } from 'entities/ui/TaskCard';
+import { TaskCard } from 'entities/ui';
+import { FilterButton } from 'shared/ui';
 import { useTasks } from '../model/useTasks';
-import { FilterButton } from 'shared/ui/FilterButton';
+import styles from './TaskList.module.css';
 
-interface TaskListProps {
-  initialTasks: Task[];
-}
+const FILTERS = [
+  { value: 'all' as const, label: 'Все' },
+  { value: 'completed' as const, label: 'Выполненные' },
+  { value: 'incomplete' as const, label: 'Невыполненные' },
+];
 
-export const TaskList = ({ initialTasks }: TaskListProps) => {
-  const { tasks, filter, setFilter, removeTask } = useTasks(initialTasks);
+export const TaskList = () => {
+  const { tasks, filter, setFilter, removeTask, isLoading, isError } = useTasks();
+
+  if (isLoading) {
+    return <p className={styles.empty}>Загрузка...</p>;
+  }
+
+  if (isError) {
+    return <p className={styles.empty}>Не удалось загрузить задачи</p>;
+  }
 
   return (
     <>
       <div className={styles.filters}>
-        <div className={styles.filters}>
+        {FILTERS.map(({ value, label }) => (
           <FilterButton
-            value="all"
-            label="Все"
+            key={value}
+            value={value}
+            label={label}
             current={filter}
             onChange={setFilter}
           />
-          <FilterButton
-            value="completed"
-            label="Выполненные"
-            current={filter}
-            onChange={setFilter}
-          />
-          <FilterButton
-            value="incomplete"
-            label="Невыполненные"
-            current={filter}
-            onChange={setFilter}
-          />
-        </div>
+        ))}
       </div>
 
-      {tasks.map((item) => (
-        <div key={item.id} className={styles.row}>
-          <TaskCard task={item} />
-          <button
-            className={styles.removeButton}
-            onClick={() => removeTask(item.id)}
-          >
-            Удалить
-          </button>
-        </div>
-      ))}
+      <div className={styles.list}>
+        {tasks.map((item) => (
+          <div key={item.id} className={styles.row}>
+            <TaskCard task={item} />
+            <button
+              className={styles.removeButton}
+              onClick={() => removeTask(Number(item.id))}
+            >
+              Удалить
+            </button>
+          </div>
+        ))}
+      </div>
 
-      {tasks.length === 0 && <p>Задач нет</p>}
+      {tasks.length === 0 && <p className={styles.empty}>Задач нет</p>}
     </>
   );
 };
