@@ -1,32 +1,44 @@
-import { useMemo, useState } from 'react';
-import type { Task } from '../../../entities/task/model/types';
+import { useGetTasksQuery } from 'entities/task/api/taskApi';
+import { Task } from 'entities/task/model/types';
+import { useEffect, useMemo, useState } from 'react';
 
 export type Filter = 'all' | 'completed' | 'incomplete';
 
-interface Response {
-  tasks: Task[]; // отфильтрованные задачи
-  filter: Filter; // текущий фильтр
-  setFilter: (f: Filter) => void; // смена фильтра
-  removeTask: (id: string) => void; // удаление задачи по ID
+export interface UseTasksResult {
+  tasks: Task[];
+  filter: Filter;
+  setFilter: (f: Filter) => void;
+  removeTask: (id: number) => void;
+  isLoading: boolean;
+  isError: boolean;
 }
 
-export const useTasks = (initial: Task[]): Response => {
-  const [data, setData] = useState<Task[]>(initial);
+export const useTasks = (): UseTasksResult => {
+  const { data: remoteTasks, isLoading, isError } = useGetTasksQuery();
+
+  const [allTasks, setAllTasks] = useState<Task[]>([]);
   const [filter, setFilter] = useState<Filter>('all');
 
-  const removeTask = (id: string) =>
-    setData((prev) => prev.filter((item) => item.id !== id));
+  useEffect(() => {
+    if (remoteTasks && remoteTasks.length > 0 && allTasks.length === 0) {
+      setAllTasks(remoteTasks);
+    }
+  }, [remoteTasks]);
+
+  const removeTask = (id: number) => {
+    setAllTasks((prev) => prev.filter((item) => Number(item.id) !== id));
+  };
 
   const tasks = useMemo(() => {
     switch (filter) {
       case 'completed':
-        return data.filter((item) => item.completed);
+        return allTasks.filter((item) => item.completed);
       case 'incomplete':
-        return data.filter((item) => !item.completed);
+        return allTasks.filter((item) => !item.completed);
       default:
-        return data;
+        return allTasks;
     }
-  }, [data, filter]);
+  }, [allTasks, filter]);
 
-  return { tasks, filter, removeTask, setFilter };
+  return { tasks, filter, setFilter, removeTask, isLoading, isError };
 };
