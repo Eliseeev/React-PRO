@@ -1,0 +1,28 @@
+.fieldset {
+  margin: 0 0 20px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.legend {
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.row > *:first-child {
+  flex: 1;
+}
+
+.addButton {
+  margin-top: 4px;
+}

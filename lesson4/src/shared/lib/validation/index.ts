@@ -1,0 +1,1 @@
+export const isEmail = (value: string): boolean => value.includes('@');
