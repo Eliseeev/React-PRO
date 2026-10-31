@@ -1,0 +1,57 @@
+# Зависимости (на любой глубине — включая lesson-04/, lesson-05/ и т.д.)
+**/node_modules/
+node_modules/
+
+# Сборка
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# Кэш
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Переменные окружения
+.env
+.env.local
+.env.*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Логи
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Редакторы и ОС
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Покрытие тестов
+coverage/
+.nyc_output/
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Временные файлы
+*.local
+*.tmp
