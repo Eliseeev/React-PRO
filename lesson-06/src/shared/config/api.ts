@@ -1,0 +1,1 @@
+export const API_BASE = 'https://api.v2.react-learning.ru';

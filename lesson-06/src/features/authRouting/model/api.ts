@@ -1,4 +1,4 @@
-const API_BASE = 'https://api.v2.react-learning.ru/';
+import { API_BASE } from 'shared/config';
 
 export interface ApiUser {
   id: string;
@@ -7,7 +7,7 @@ export interface ApiUser {
 }
 
 export interface LoginResponse {
-  token: string;      // без "Bearer "
+  token: string;      
   user: ApiUser;
 }
 
@@ -38,7 +38,6 @@ export async function loginRequest(
     throw new Error('Сервер не вернул токен');
   }
 
-  // Убираем "Bearer " — будем добавлять сами при запросах
   const token = data.accessToken.replace(/^Bearer\s+/i, '');
 
   const rawUser = data.user;
@@ -56,7 +55,7 @@ export async function getMeRequest(token: string): Promise<ApiUser> {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,  // ← добавляем Bearer сами
+      Authorization: `Bearer ${token}`, 
     },
   });
 
@@ -81,8 +80,8 @@ export async function getMeRequest(token: string): Promise<ApiUser> {
   const raw = data.user ?? data;
 
   return {
-    id: raw.id ?? '',
-    email: raw.email ?? '',
-    name: raw.name ?? (raw.email ?? '').split('@')[0],
+    id: raw?.id ?? '',
+    email: raw?.email ?? '',
+    name: raw?.name ?? (raw.email ?? '').split('@')[0],
   };
 }

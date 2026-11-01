@@ -48,7 +48,6 @@ export function ProfilePage() {
     };
   }, [token, logout, navigate]);
 
-  // Выход: очищаем контекст + токен и редиректим на /login
   const handleLogout = () => {
     logout();
     navigate('/login', { replace: true });
